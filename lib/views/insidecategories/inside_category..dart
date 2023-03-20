@@ -36,7 +36,7 @@ class InsideCategory extends StatelessWidget {
                   return Card(
                     child: ListTile(
                       onTap: () {
-                        Get.to(ProductView(
+                        Get.to(() => ProductView(
                             brand: brand,
                             docc: documentSnapshot['doc'],
                             name: documentSnapshot['name'],
@@ -56,7 +56,7 @@ class InsideCategory extends StatelessWidget {
                         children: [
                           IconButton(
                               onPressed: () {
-                                Get.to(EditProduct(
+                                Get.to(() => EditProduct(
                                     brand: brand,
                                     docc: documentSnapshot['doc'],
                                     name: documentSnapshot['name'],
@@ -78,6 +78,7 @@ class InsideCategory extends StatelessWidget {
                           IconButton(
                               onPressed: () {
                                 delproduct(
+                                    brandname: brand,
                                     product: ProductModel(
                                         doc: documentSnapshot['doc'],
                                         name: documentSnapshot['name'],
@@ -115,9 +116,9 @@ class InsideCategory extends StatelessWidget {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(AddProduct(
-            brand: brand,
-          ));
+          Get.to(() => AddProduct(
+                brand: brand,
+              ));
         },
         child: Icon(Icons.add),
       ),

@@ -12,4 +12,9 @@ updateproduct({required ProductModel product, required String brand}) async {
   final json = product.toJson();
   await update.update(json);
   log('update');
+  final search =
+      FirebaseFirestore.instance.collection('search').doc(product.doc);
+
+  await search.update(json);
+  log('addtosearch');
 }

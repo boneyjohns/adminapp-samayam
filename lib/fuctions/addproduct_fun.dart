@@ -16,6 +16,11 @@ Future addproduct(
   final json = product.toJson();
   await add.set(json);
   log('added');
+  final search =
+      FirebaseFirestore.instance.collection('search').doc(product.doc);
+
+  await search.set(json);
+  log('add product to search screen');
 }
 
 Future addcategory({required CateModel cate}) async {
@@ -25,5 +30,5 @@ Future addcategory({required CateModel cate}) async {
 
   await add.set(json);
   log('added cate');
-  Get.to(CategoryList());
+  Get.to(() => const CategoryList());
 }

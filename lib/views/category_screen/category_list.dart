@@ -1,3 +1,4 @@
+import 'package:adminapp/fuctions/delproductfunction.dart';
 import 'package:adminapp/views/category_screen/addcate.dart';
 import 'package:adminapp/views/insidecategories/inside_category..dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,11 +29,19 @@ class CategoryList extends StatelessWidget {
                   return Card(
                     child: ListTile(
                       onTap: () {
-                        Get.to(InsideCategory(brand: documentsnampshot['name']),
+                        Get.to(
+                            () => InsideCategory(
+                                brand: documentsnampshot['name']),
                             transition: Transition.zoom,
-                            duration: const Duration(seconds: 3));
+                            duration: const Duration(seconds: 1));
                       },
                       title: Text(documentsnampshot['name']),
+                      trailing: IconButton(
+                          onPressed: () {
+                            delectcategories(
+                                categories: documentsnampshot['name']);
+                          },
+                          icon: Icon(Icons.delete)),
                     ),
                   );
                 },
@@ -43,7 +52,7 @@ class CategoryList extends StatelessWidget {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(Addcate());
+          Get.to(() => Addcate());
         },
         child: const Icon(Icons.add),
       ),
