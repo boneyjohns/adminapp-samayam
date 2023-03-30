@@ -41,7 +41,10 @@ class CategoryList extends StatelessWidget {
                             delectcategories(
                                 categories: documentsnampshot['name']);
                           },
-                          icon: Icon(Icons.delete)),
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          )),
                     ),
                   );
                 },
