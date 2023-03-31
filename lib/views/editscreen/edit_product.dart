@@ -1,3 +1,4 @@
+import 'package:adminapp/const/const.dart';
 import 'package:adminapp/fuctions/updateproduct.dart';
 import 'package:adminapp/model/product_model.dart';
 import 'package:adminapp/views/editscreen/widget/editimage.dart';
@@ -5,50 +6,35 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EditProduct extends StatelessWidget {
-  EditProduct(
-      {Key? key,
-      required this.brand,
-      required this.name,
-      required this.price,
-      required this.quantity,
-      required this.displaytype,
-      required this.modelname,
-      required this.strapcolour,
-      required this.straptype,
-      required this.warrantyperiod,
-      required this.dualtime,
-      required this.docc,
-      required this.imagelist})
-      : super(key: key);
+  EditProduct({
+    required this.productModel,
+    Key? key,
+    required this.brand,
+  }) : super(key: key);
+  final ProductModel productModel;
   final String brand;
-  final String name;
-  final String price;
-  final String quantity;
-  final String displaytype;
-  final String modelname;
-  final String strapcolour;
-  final String straptype;
-  final String warrantyperiod;
-  final String dualtime;
-  final List imagelist;
-  final String docc;
-
-  late final nameconroller = TextEditingController(text: name);
-  late final priceconroller = TextEditingController(text: price);
-  late final displayconroller = TextEditingController(text: displaytype);
-  late final quantityconroller = TextEditingController(text: quantity);
-  late final modelconroller = TextEditingController(text: modelname);
-  late final strapcolourconroller = TextEditingController(text: strapcolour);
-  late final straptypeconroller = TextEditingController(text: straptype);
+  late final nameconroller = TextEditingController(text: productModel.name);
+  late final priceconroller = TextEditingController(text: productModel.price);
+  late final displayconroller =
+      TextEditingController(text: productModel.displaytype);
+  late final quantityconroller =
+      TextEditingController(text: productModel.quantity);
+  late final modelconroller =
+      TextEditingController(text: productModel.modelname);
+  late final strapcolourconroller =
+      TextEditingController(text: productModel.strapcolour);
+  late final straptypeconroller =
+      TextEditingController(text: productModel.straptype);
   late final warrantyperiodconroller =
-      TextEditingController(text: warrantyperiod);
-  late final dualtimeconroller = TextEditingController(text: dualtime);
+      TextEditingController(text: productModel.warrantyperiod);
+  late final dualtimeconroller =
+      TextEditingController(text: productModel.dualtime);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Edit Product'),
+          title: const Text('Edit Product'),
           centerTitle: true,
         ),
         body: Padding(
@@ -94,15 +80,13 @@ class EditProduct extends StatelessWidget {
                 controller: dualtimeconroller,
                 decoration: const InputDecoration(labelText: 'Dual Time'),
               ),
-              EditImageWidget(image: imagelist),
-              SizedBox(
-                height: 50,
-              ),
+              EditImageWidget(image: productModel.imagelist),
+              kheight50,
               ElevatedButton(
-                  onPressed: () {
-                    updateproduct(
+                  onPressed: () async {
+                    await updateproduct(
                         product: ProductModel(
-                            doc: docc,
+                            doc: productModel.doc,
                             name: nameconroller.text,
                             price: priceconroller.text,
                             quantity: quantityconroller.text,
@@ -112,11 +96,11 @@ class EditProduct extends StatelessWidget {
                             straptype: straptypeconroller.text,
                             warrantyperiod: warrantyperiodconroller.text,
                             dualtime: dualtimeconroller.text,
-                            imagelist: imagelist),
+                            imagelist: productModel.imagelist),
                         brand: brand);
                     Get.back();
                   },
-                  child: Text('edit'))
+                  child: const Text('edit'))
             ],
           ),
         ));

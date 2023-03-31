@@ -1,3 +1,5 @@
+import 'package:adminapp/const/colors.dart';
+import 'package:adminapp/const/const.dart';
 import 'package:adminapp/fuctions/orderfunstion.dart';
 import 'package:adminapp/model/ordermodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,12 +11,13 @@ class Userorders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: backgroundcolor,
         appBar: AppBar(
           title: const Text('Orders'),
           centerTitle: true,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(15.0),
           child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('users')
@@ -24,9 +27,7 @@ class Userorders extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return ListView.separated(
-                      separatorBuilder: (context, index) => SizedBox(
-                            height: 20,
-                          ),
+                      separatorBuilder: (context, index) => kheight20,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         QueryDocumentSnapshot documentSnapshot =
@@ -35,12 +36,14 @@ class Userorders extends StatelessWidget {
                           height: 130,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Colors.blue),
+                              color: kblue),
                           child: Column(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(15),
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       height: 90,
@@ -48,15 +51,13 @@ class Userorders extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          color: Colors.white),
+                                          color: kwhite),
                                       child: Image.network(
                                         documentSnapshot['images'][0],
                                         fit: BoxFit.contain,
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
+                                    kheight20,
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -66,9 +67,9 @@ class Userorders extends StatelessWidget {
                                             child: Text(
                                               maxLines: 1,
                                               '${documentSnapshot['name']}',
-                                              style: TextStyle(
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
                                             )),
                                         Text('₹${documentSnapshot['price']}'),
                                       ],
@@ -79,7 +80,7 @@ class Userorders extends StatelessWidget {
                                       children: [
                                         ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                primary: Color.fromARGB(
+                                                primary: const Color.fromARGB(
                                                     255, 12, 139, 55),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
@@ -96,15 +97,14 @@ class Userorders extends StatelessWidget {
                                             },
                                             child: const Text(
                                               'Accept Order',
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style: TextStyle(color: kwhite),
                                             )),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 40,
                                         ),
                                         ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                primary: Color(0xffdd0021),
+                                                primary: kred,
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -120,8 +120,7 @@ class Userorders extends StatelessWidget {
                                             },
                                             child: const Text(
                                               'Reject Order',
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style: TextStyle(color: kwhite),
                                             )),
                                       ],
                                     ),
@@ -135,9 +134,7 @@ class Userorders extends StatelessWidget {
                 } else {
                   return const Align(
                     alignment: FractionalOffset.center,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
+                    child: CircularProgressIndicator(),
                   );
                 }
               }),

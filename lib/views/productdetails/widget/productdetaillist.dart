@@ -1,3 +1,4 @@
+import 'package:adminapp/const/colors.dart';
 import 'package:flutter/material.dart';
 
 class Productdetails extends StatelessWidget {
@@ -15,8 +16,8 @@ class Productdetails extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Text(
           '$title : $detail',
-          style: TextStyle(
-              color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+              color: kwhite, fontSize: 18, fontWeight: FontWeight.bold),
         ));
   }
 }

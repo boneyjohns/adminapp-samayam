@@ -1,28 +1,26 @@
 import 'package:adminapp/fuctions/addproduct_fun.dart';
 import 'package:adminapp/model/cateModel.dart';
-import 'package:adminapp/views/addproduct/add_product.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class Addcate extends StatelessWidget {
   Addcate({Key? key}) : super(key: key);
-  TextEditingController nameconroller = TextEditingController();
+  final TextEditingController nameconroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Add cate'),
+          title: const Text('Add Category'),
           centerTitle: true,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: ListView(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
             children: [
               TextFormField(
                 controller: nameconroller,
                 decoration:
-                    const InputDecoration(labelText: 'Name of the Product'),
+                    const InputDecoration(labelText: 'Name of the Category'),
               ),
               ElevatedButton(
                   onPressed: () async {
@@ -31,7 +29,7 @@ class Addcate extends StatelessWidget {
                       name: nameconroller.text,
                     ));
                   },
-                  child: Text('Add'))
+                  child: const Text('Add'))
             ],
           ),
         ));

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:adminapp/const/colors.dart';
 import 'package:adminapp/const/const.dart';
 import 'package:adminapp/fuctions/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _AddImageWidgetState extends State<AddImageWidget> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Colors.white70, width: 1),
+          border: Border.all(color: kwhite, width: 1),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,14 +48,14 @@ class _AddImageWidgetState extends State<AddImageWidget> {
                     Icon(
                       Icons.add,
                       size: 36,
-                      color: Colors.blue,
+                      color: kblue,
                     ),
                     Text(
                       'Add Images',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue),
+                          color: kblue),
                     )
                   ],
                 ),
@@ -73,10 +74,10 @@ class _AddImageWidgetState extends State<AddImageWidget> {
                           context, image[index], image, index);
                     },
                     separatorBuilder: (BuildContext context, int index) =>
-                        kheight,
+                        kheight20,
                   ),
                 )),
-            kheight,
+            kheight20,
           ],
         ),
       ),
@@ -90,7 +91,7 @@ class _AddImageWidgetState extends State<AddImageWidget> {
         width: srcWidth,
         height: srcWidth * 0.7,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: kwhite,
           image: DecorationImage(
             image: NetworkImage(imgUrl),
           ),
@@ -106,7 +107,7 @@ class _AddImageWidgetState extends State<AddImageWidget> {
             });
           },
           child: const CircleAvatar(
-            backgroundColor: Colors.blue,
+            backgroundColor: kblue,
             radius: 20,
             child: Icon(Icons.remove),
           ),

@@ -1,9 +1,9 @@
+import 'package:adminapp/const/colors.dart';
+import 'package:adminapp/const/const.dart';
 import 'package:adminapp/views/category_screen/category_list.dart';
+import 'package:adminapp/views/navigation/widgets/navigationwidget.dart';
 import 'package:adminapp/views/users/users.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 
 class Navigation extends StatelessWidget {
@@ -12,40 +12,21 @@ class Navigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundcolor,
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(() => Userside());
+              Get.to(() => const Userside());
             },
-            child: Container(
-              height: 200,
-              width: 300,
-              color: Colors.blue,
-              child: Center(
-                  child: Text(
-                'Users',
-                style: TextStyle(color: Colors.white, fontSize: 22),
-              )),
-            ),
+            child: const Navigationwidget(title: 'Users'),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          kheight20,
           GestureDetector(
-            onTap: () => Get.to(() => CategoryList()),
-            child: Container(
-              height: 200,
-              width: 300,
-              color: Colors.blue,
-              child: Center(
-                  child: Text(
-                'Products',
-                style: TextStyle(color: Colors.white, fontSize: 22),
-              )),
-            ),
+            onTap: () => Get.to(() => const CategoryList()),
+            child: const Navigationwidget(title: "Products"),
           ),
         ],
       )),

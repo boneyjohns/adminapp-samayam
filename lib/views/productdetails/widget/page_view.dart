@@ -1,3 +1,4 @@
+import 'package:adminapp/const/colors.dart';
 import 'package:flutter/material.dart';
 
 class PageViewWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class PageViewWidget extends StatelessWidget {
     return Container(
       height: 200,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: kwhite,
         //borderRadius: BorderRadius.circular(20)
       ),
       child: PageView.builder(

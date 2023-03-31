@@ -1,3 +1,5 @@
+import 'package:adminapp/const/colors.dart';
+import 'package:adminapp/const/const.dart';
 import 'package:adminapp/fuctions/image_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,7 @@ class _EditImageWidgetState extends State<EditImageWidget> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Colors.white70, width: 1),
+          border: Border.all(color: kwhite, width: 1),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,14 +45,14 @@ class _EditImageWidgetState extends State<EditImageWidget> {
                     Icon(
                       Icons.add,
                       size: 36,
-                      color: Colors.blue,
+                      color: kblue,
                     ),
                     Text(
                       'Add Images',
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue),
+                          color: kblue),
                     )
                   ],
                 ),
@@ -61,18 +63,15 @@ class _EditImageWidgetState extends State<EditImageWidget> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: widget.image!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return imageContainer(context, widget.image![index]);
-                      },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          SizedBox(
-                            height: 20,
-                          )
-                      // k20Height,
-                      ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: widget.image!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return imageContainer(context, widget.image![index]);
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        kheight20,
+                  ),
                 )),
             // k20Height
           ],
@@ -91,7 +90,7 @@ class _EditImageWidgetState extends State<EditImageWidget> {
         width: srcWidth,
         height: srcWidth * 0.7,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: kwhite,
           image: DecorationImage(
             image: NetworkImage(imgUrl),
           ),
@@ -107,7 +106,7 @@ class _EditImageWidgetState extends State<EditImageWidget> {
             });
           },
           child: const CircleAvatar(
-            backgroundColor: Colors.blue,
+            backgroundColor: kblue,
             radius: 20,
             child: Icon(Icons.remove),
           ),

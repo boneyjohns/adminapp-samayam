@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:adminapp/const/colors.dart';
 import 'package:adminapp/fuctions/delproductfunction.dart';
 import 'package:adminapp/model/product_model.dart';
 import 'package:adminapp/views/addproduct/add_product.dart';
@@ -16,111 +15,140 @@ class InsideCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundcolor,
       appBar: AppBar(
         title: Text(brand.toString()),
         centerTitle: true,
       ),
-      body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection('categories')
-              .doc(brand)
-              .collection(brand)
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  QueryDocumentSnapshot documentSnapshot =
-                      snapshot.data!.docs[index];
-                  return Card(
-                    child: ListTile(
-                      onTap: () {
-                        Get.to(() => ProductView(
-                            brand: brand,
-                            docc: documentSnapshot['doc'],
-                            name: documentSnapshot['name'],
-                            price: documentSnapshot['price'],
-                            quantity: documentSnapshot['quantity'],
-                            displaytype: documentSnapshot['displaytype'],
-                            modelname: documentSnapshot['modelname'],
-                            strapcolour: documentSnapshot['strapcolour'],
-                            straptype: documentSnapshot['straptype'],
-                            warrantyperiod: documentSnapshot['warrantyperiod'],
-                            dualtime: documentSnapshot['dualtime'],
-                            imagelist: documentSnapshot['image'].toList()));
-                      },
-                      title: Text(documentSnapshot['name']),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: StreamBuilder<List<ProductModel>>(
+            stream: FirebaseFirestore.instance
+                .collection('categories')
+                .doc(brand)
+                .collection(brand)
+                .snapshots()
+                .map((event) => event.docs
+                    .map((e) => ProductModel.fromJson(e.data()))
+                    .toList()),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    List<ProductModel> documentSnapshot = snapshot.data!;
+                    return Card(
+                      color: kblue,
+                      child: ListTile(
+                        onTap: () {
+                          Get.to(() => ProductView(
+                                productModel: ProductModel(
+                                    name: documentSnapshot[index].name,
+                                    doc: documentSnapshot[index].doc,
+                                    price: documentSnapshot[index].price,
+                                    quantity: documentSnapshot[index].quantity,
+                                    displaytype:
+                                        documentSnapshot[index].displaytype,
+                                    modelname:
+                                        documentSnapshot[index].modelname,
+                                    strapcolour:
+                                        documentSnapshot[index].strapcolour,
+                                    straptype:
+                                        documentSnapshot[index].straptype,
+                                    warrantyperiod:
+                                        documentSnapshot[index].warrantyperiod,
+                                    dualtime: documentSnapshot[index].dualtime,
+                                    imagelist:
+                                        documentSnapshot[index].imagelist),
+                              ));
+                        },
+                        title: Text(documentSnapshot[index].name,
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
                               onPressed: () {
                                 Get.to(() => EditProduct(
-                                    brand: brand,
-                                    docc: documentSnapshot['doc'],
-                                    name: documentSnapshot['name'],
-                                    price: documentSnapshot['price'],
-                                    quantity: documentSnapshot['quantity'],
-                                    displaytype:
-                                        documentSnapshot['displaytype'],
-                                    modelname: documentSnapshot['modelname'],
-                                    strapcolour:
-                                        documentSnapshot['strapcolour'],
-                                    straptype: documentSnapshot['straptype'],
-                                    warrantyperiod:
-                                        documentSnapshot['warrantyperiod'],
-                                    dualtime: documentSnapshot['dualtime'],
-                                    imagelist:
-                                        documentSnapshot['image'].toList()));
+                                      brand: brand,
+                                      productModel: ProductModel(
+                                          name: documentSnapshot[index].name,
+                                          doc: documentSnapshot[index].doc,
+                                          price: documentSnapshot[index].price,
+                                          quantity:
+                                              documentSnapshot[index].quantity,
+                                          displaytype: documentSnapshot[index]
+                                              .displaytype,
+                                          modelname:
+                                              documentSnapshot[index].modelname,
+                                          strapcolour: documentSnapshot[index]
+                                              .strapcolour,
+                                          straptype:
+                                              documentSnapshot[index].straptype,
+                                          warrantyperiod:
+                                              documentSnapshot[index]
+                                                  .warrantyperiod,
+                                          dualtime:
+                                              documentSnapshot[index].dualtime,
+                                          imagelist: documentSnapshot[index]
+                                              .imagelist),
+                                    ));
                               },
-                              icon: const Icon(Icons.edit)),
-                          IconButton(
-                              onPressed: () {
-                                delproduct(
+                              icon: const Icon(Icons.edit),
+                              color: kwhite,
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  delproduct(
                                     brandname: brand,
                                     product: ProductModel(
-                                        doc: documentSnapshot['doc'],
-                                        name: documentSnapshot['name'],
-                                        price: documentSnapshot['price'],
-                                        quantity: documentSnapshot['quantity'],
+                                        name: documentSnapshot[index].name,
+                                        doc: documentSnapshot[index].doc,
+                                        price: documentSnapshot[index].price,
+                                        quantity:
+                                            documentSnapshot[index].quantity,
                                         displaytype:
-                                            documentSnapshot['displaytype'],
+                                            documentSnapshot[index].displaytype,
                                         modelname:
-                                            documentSnapshot['modelname'],
+                                            documentSnapshot[index].modelname,
                                         strapcolour:
-                                            documentSnapshot['strapcolour'],
+                                            documentSnapshot[index].strapcolour,
                                         straptype:
-                                            documentSnapshot['straptype'],
-                                        warrantyperiod:
-                                            documentSnapshot['warrantyperiod'],
-                                        dualtime: documentSnapshot['dualtime'],
-                                        imagelist: documentSnapshot['image']
-                                            .toList()));
-                                log('delected');
-                                Get.back();
-                              },
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              ))
-                        ],
+                                            documentSnapshot[index].straptype,
+                                        warrantyperiod: documentSnapshot[index]
+                                            .warrantyperiod,
+                                        dualtime:
+                                            documentSnapshot[index].dualtime,
+                                        imagelist:
+                                            documentSnapshot[index].imagelist),
+                                  );
+
+                                  Get.back();
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: kred,
+                                ))
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            } else {
-              return Text('nodata');
-            }
-          }),
+                    );
+                  },
+                );
+              } else {
+                return const Text('No Data');
+              }
+            }),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(() => AddProduct(
                 brand: brand,
               ));
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
